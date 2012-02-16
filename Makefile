@@ -56,7 +56,7 @@ effects-min:
 	${UGLIFY} ${DEV}/effects/transfer.js  > ${PROD}/effects/transfer.js
 
 ui-all:
-	cp ${UI}/jquery-ui.js ${DEV}/ui.js
+	${MODULARIZE} -jq -n "ui" ${UI}/jquery-ui.js > ${DEV}/ui.js
 
 ui-all-min:
 	${UGLIFY} ${DEV}/ui.js > ${PROD}/ui.js
