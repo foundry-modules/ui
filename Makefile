@@ -24,20 +24,21 @@ ant:
 	cd build && ant && cd ..
 
 effects:
-	cp ${UI}/jquery.effects.blind.js      ${DEV}/effects/blind.js
-	cp ${UI}/jquery.effects.bounce.js     ${DEV}/effects/bounce.js
-	cp ${UI}/jquery.effects.clip.js       ${DEV}/effects/clip.js
-	cp ${UI}/jquery.effects.core.js       ${DEV}/effects/core.js
-	cp ${UI}/jquery.effects.drop.js       ${DEV}/effects/drop.js
-	cp ${UI}/jquery.effects.explode.js    ${DEV}/effects/explode.js
-	cp ${UI}/jquery.effects.fade.js       ${DEV}/effects/fade.js
-	cp ${UI}/jquery.effects.fold.js       ${DEV}/effects/fold.js
-	cp ${UI}/jquery.effects.highlight.js  ${DEV}/effects/highlight.js
-	cp ${UI}/jquery.effects.pulsate.js    ${DEV}/effects/pulsate.js
-	cp ${UI}/jquery.effects.scale.js      ${DEV}/effects/scale.js
-	cp ${UI}/jquery.effects.shake.js      ${DEV}/effects/shake.js
-	cp ${UI}/jquery.effects.slide.js      ${DEV}/effects/slide.js
-	cp ${UI}/jquery.effects.transfer.js   ${DEV}/effects/transfer.js
+	${MODULARIZE} -jq -n "effects/core" ${UI}/jquery.effects.core.js ${DEV}/effects/core.js
+
+	${MODULARIZE} -jq -n "effects/blind"     -d "effects/core" ${UI}/jquery.effects.blind.js      > ${DEV}/effects/blind.js
+	${MODULARIZE} -jq -n "effects/bounce"    -d "effects/core" ${UI}/jquery.effects.bounce.js     > ${DEV}/effects/bounce.js
+	${MODULARIZE} -jq -n "effects/clip"      -d "effects/core" ${UI}/jquery.effects.clip.js       > ${DEV}/effects/clip.js
+	${MODULARIZE} -jq -n "effects/drop"      -d "effects/core" ${UI}/jquery.effects.drop.js       > ${DEV}/effects/drop.js
+	${MODULARIZE} -jq -n "effects/explode"   -d "effects/core" ${UI}/jquery.effects.explode.js    > ${DEV}/effects/explode.js
+	${MODULARIZE} -jq -n "effects/fade"      -d "effects/core" ${UI}/jquery.effects.fade.js       > ${DEV}/effects/fade.js
+	${MODULARIZE} -jq -n "effects/fold"      -d "effects/core" ${UI}/jquery.effects.fold.js       > ${DEV}/effects/fold.js
+	${MODULARIZE} -jq -n "effects/highlight" -d "effects/core" ${UI}/jquery.effects.highlight.js  > ${DEV}/effects/highlight.js
+	${MODULARIZE} -jq -n "effects/pulsate"   -d "effects/core" ${UI}/jquery.effects.pulsate.js    > ${DEV}/effects/pulsate.js
+	${MODULARIZE} -jq -n "effects/scale"     -d "effects/core" ${UI}/jquery.effects.scale.js      > ${DEV}/effects/scale.js
+	${MODULARIZE} -jq -n "effects/shake"     -d "effects/core" ${UI}/jquery.effects.shake.js      > ${DEV}/effects/shake.js
+	${MODULARIZE} -jq -n "effects/slide"     -d "effects/core" ${UI}/jquery.effects.slide.js      > ${DEV}/effects/slide.js
+	${MODULARIZE} -jq -n "effects/transfer"  -d "effects/core" ${UI}/jquery.effects.transfer.js   > ${DEV}/effects/transfer.js
 
 effects-min:
 	${UGLIFY} ${DEV}/effects/blind.js     > ${PROD}/effects/blind.js
