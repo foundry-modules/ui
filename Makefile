@@ -24,7 +24,7 @@ ant:
 	cd build && ant && cd ..
 
 effects:
-	${MODULARIZE} -jq -n "effects/core" ${UI}/jquery.effects.core.js ${DEV}/effects/core.js
+	${MODULARIZE} -jq -n "effects/core" ${UI}/jquery.effects.core.js > ${DEV}/effects/core.js
 
 	${MODULARIZE} -jq -n "effects/blind"     -d "effects/core" ${UI}/jquery.effects.blind.js      > ${DEV}/effects/blind.js
 	${MODULARIZE} -jq -n "effects/bounce"    -d "effects/core" ${UI}/jquery.effects.bounce.js     > ${DEV}/effects/bounce.js
@@ -66,7 +66,7 @@ ui_:
 	${MODULARIZE} -jq -n "ui/core" -css "ui/core,ui/theme" ${UI}/jquery.ui.core.js > ${DEV}/ui/core.js
 	${MODULARIZE} -jq -n "ui/widget" ${UI}/jquery.ui.widget.js > ${DEV}/ui/widget.js
 	${MODULARIZE} -jq -n "ui/accordion" -d "ui/core,ui/widget" -css "ui/accordion" ${UI}/jquery.ui.accordion.js > ${DEV}/ui/accordion.js
-	${MODULARIZE} -jq -n "ui/autocomplete" -d "ui/core,ui/widget,ui/position,ui/menu" -css "ui/autocomplete"${UI}/jquery.ui.autocomplete.js > ${DEV}/ui/autocomplete.js
+	${MODULARIZE} -jq -n "ui/autocomplete" -d "ui/core,ui/widget,ui/position,ui/menu" -css "ui/autocomplete" ${UI}/jquery.ui.autocomplete.js > ${DEV}/ui/autocomplete.js
 	${MODULARIZE} -jq -n "ui/button" -d "ui/core,ui/widget" -css "ui/button" ${UI}/jquery.ui.button.js > ${DEV}/ui/button.js
 	${MODULARIZE} -jq -n "ui/datepicker" -d "ui/core,ui/i18n" -css "ui/datepicker" ${UI}/jquery.ui.datepicker.js > ${DEV}/ui/datepicker.js
 	${MODULARIZE} -jq -n "ui/dialog" -d "ui/core,ui/widget,ui/button,ui/draggable,ui/mouse,ui/position,ui/resizable" -css "ui/dialog" ${UI}/jquery.ui.dialog.js > ${DEV}/ui/dialog.js
