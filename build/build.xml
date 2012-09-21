@@ -209,6 +209,7 @@
 	<target name="docs-download">
 		<mkdir dir="${docs.dir}" />
 		<property name="url" value="http://docs.jquery.com/action/render/UI/API/${release.version}/" />
+		<!--
 		<parallel threadcount="8">
 			<get src="${url}Draggable" dest="${docs.dir}draggable.html" />
 			<get src="${url}Droppable" dest="${docs.dir}droppable.html" />
@@ -258,6 +259,7 @@
 			<get src="http://docs.jquery.com/action/render/UI/Effects/Size" dest="${docs.dir}effect-size.html" />
 			<get src="http://docs.jquery.com/action/render/UI/Effects/Transfer" dest="${docs.dir}effect-transfer.html" />
 		</parallel>
+		-->
 	</target>
 
 	<target name="themes-download">
