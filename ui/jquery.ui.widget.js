@@ -1,17 +1,18 @@
 /*!
  * jQuery UI Widget @VERSION
+ * http://jqueryui.com
  *
- * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
+ * Copyright 2012 jQuery Foundation and other contributors
+ * Released under the MIT license.
  * http://jquery.org/license
  *
- * http://docs.jquery.com/UI/Widget
+ * http://api.jqueryui.com/jQuery.widget/
  */
 (function( $, undefined ) {
 
-var slice = Array.prototype.slice;
-
-var _cleanData = $.cleanData;
+var uuid = 0,
+	slice = Array.prototype.slice,
+	_cleanData = $.cleanData;
 $.cleanData = function( elems ) {
 	for ( var i = 0, elem; (elem = elems[i]) != null; i++ ) {
 		try {
@@ -35,8 +36,8 @@ $.widget = function( name, base, prototype ) {
 	}
 
 	// create selector for plugin
-	$.expr[ ":" ][ fullName ] = function( elem ) {
-		return !!$.data( elem, name );
+	$.expr[ ":" ][ fullName.toLowerCase() ] = function( elem ) {
+		return !!$.data( elem, fullName );
 	};
 
 	$[ namespace ] = $[ namespace ] || {};
@@ -73,11 +74,11 @@ $.widget = function( name, base, prototype ) {
 		if ( $.isFunction( value ) ) {
 			prototype[ prop ] = (function() {
 				var _super = function() {
-					return base.prototype[ prop ].apply( this, arguments );
-				};
-				var _superApply = function( args ) {
-					return base.prototype[ prop ].apply( this, args );
-				};
+						return base.prototype[ prop ].apply( this, arguments );
+					},
+					_superApply = function( args ) {
+						return base.prototype[ prop ].apply( this, args );
+					};
 				return function() {
 					var __super = this._super,
 						__superApply = this._superApply,
@@ -105,7 +106,9 @@ $.widget = function( name, base, prototype ) {
 		constructor: constructor,
 		namespace: namespace,
 		widgetName: name,
-		widgetBaseClass: fullName
+		// TODO remove widgetBaseClass, see #8155
+		widgetBaseClass: fullName,
+		widgetFullName: fullName
 	});
 
 	// If this widget is being redefined then we need to find all widgets that
@@ -148,6 +151,7 @@ $.widget.extend = function( target ) {
 };
 
 $.widget.bridge = function( name, object ) {
+	var fullName = object.prototype.widgetFullName;
 	$.fn[ name ] = function( options ) {
 		var isMethodCall = typeof options === "string",
 			args = slice.call( arguments, 1 ),
@@ -160,7 +164,8 @@ $.widget.bridge = function( name, object ) {
 
 		if ( isMethodCall ) {
 			this.each(function() {
-				var instance = $.data( this, name );
+				var methodValue,
+					instance = $.data( this, fullName );
 				if ( !instance ) {
 					return $.error( "cannot call methods on " + name + " prior to initialization; " +
 						"attempted to call method '" + options + "'" );
@@ -168,7 +173,7 @@ $.widget.bridge = function( name, object ) {
 				if ( !$.isFunction( instance[options] ) || options.charAt( 0 ) === "_" ) {
 					return $.error( "no such method '" + options + "' for " + name + " widget instance" );
 				}
-				var methodValue = instance[ options ].apply( instance, args );
+				methodValue = instance[ options ].apply( instance, args );
 				if ( methodValue !== instance && methodValue !== undefined ) {
 					returnValue = methodValue && methodValue.jquery ?
 						returnValue.pushStack( methodValue.get() ) :
@@ -178,11 +183,11 @@ $.widget.bridge = function( name, object ) {
 			});
 		} else {
 			this.each(function() {
-				var instance = $.data( this, name );
+				var instance = $.data( this, fullName );
 				if ( instance ) {
 					instance.option( options || {} )._init();
 				} else {
-					object( options, this );
+					new object( options, this );
 				}
 			});
 		}
@@ -207,6 +212,8 @@ $.Widget.prototype = {
 	_createWidget: function( options, element ) {
 		element = $( element || this.defaultElement || this )[ 0 ];
 		this.element = $( element );
+		this.uuid = uuid++;
+		this.eventNamespace = "." + this.widgetName + this.uuid;
 		this.options = $.widget.extend( {},
 			this.options,
 			this._getCreateOptions(),
@@ -217,8 +224,11 @@ $.Widget.prototype = {
 		this.focusable = $();
 
 		if ( element !== this ) {
+			// 1.9 BC for #7810
+			// TODO remove dual storage
 			$.data( element, this.widgetName, this );
-			this._bind({ remove: "destroy" });
+			$.data( element, this.widgetFullName, this );
+			this._on({ remove: "destroy" });
 			this.document = $( element.style ?
 				// element within the document
 				element.ownerDocument :
@@ -239,19 +249,25 @@ $.Widget.prototype = {
 	destroy: function() {
 		this._destroy();
 		// we can probably remove the unbind calls in 2.0
-		// all event bindings should go through this._bind()
+		// all event bindings should go through this._on()
 		this.element
-			.unbind( "." + this.widgetName )
-			.removeData( this.widgetName );
+			.unbind( this.eventNamespace )
+			// 1.9 BC for #7810
+			// TODO remove dual storage
+			.removeData( this.widgetName )
+			.removeData( this.widgetFullName )
+			// support: jquery <1.6.3
+			// http://bugs.jquery.com/ticket/9413
+			.removeData( $.camelCase( this.widgetFullName ) );
 		this.widget()
-			.unbind( "." + this.widgetName )
+			.unbind( this.eventNamespace )
 			.removeAttr( "aria-disabled" )
 			.removeClass(
-				this.widgetBaseClass + "-disabled " +
+				this.widgetFullName + "-disabled " +
 				"ui-state-disabled" );
 
 		// clean up events and states
-		this.bindings.unbind( "." + this.widgetName );
+		this.bindings.unbind( this.eventNamespace );
 		this.hoverable.removeClass( "ui-state-hover" );
 		this.focusable.removeClass( "ui-state-focus" );
 	},
@@ -314,7 +330,7 @@ $.Widget.prototype = {
 
 		if ( key === "disabled" ) {
 			this.widget()
-				.toggleClass( this.widgetBaseClass + "-disabled ui-state-disabled", !!value )
+				.toggleClass( this.widgetFullName + "-disabled ui-state-disabled", !!value )
 				.attr( "aria-disabled", value );
 			this.hoverable.removeClass( "ui-state-hover" );
 			this.focusable.removeClass( "ui-state-focus" );
@@ -330,7 +346,7 @@ $.Widget.prototype = {
 		return this._setOption( "disabled", true );
 	},
 
-	_bind: function( element, handlers ) {
+	_on: function( element, handlers ) {
 		// no element argument, shuffle and use this.element
 		if ( !handlers ) {
 			handlers = element;
@@ -358,11 +374,11 @@ $.Widget.prototype = {
 			// copy the guid so direct unbinding works
 			if ( typeof handler !== "string" ) {
 				handlerProxy.guid = handler.guid =
-					handler.guid || handlerProxy.guid || jQuery.guid++;
+					handler.guid || handlerProxy.guid || $.guid++;
 			}
 
 			var match = event.match( /^(\w+)\s*(.*)$/ ),
-				eventName = match[1] + "." + instance.widgetName,
+				eventName = match[1] + instance.eventNamespace,
 				selector = match[2];
 			if ( selector ) {
 				instance.widget().delegate( selector, eventName, handlerProxy );
@@ -370,6 +386,11 @@ $.Widget.prototype = {
 				element.bind( eventName, handlerProxy );
 			}
 		});
+	},
+
+	_off: function( element, eventName ) {
+		eventName = (eventName || "").split( " " ).join( this.eventNamespace + " " ) + this.eventNamespace;
+		element.unbind( eventName ).undelegate( eventName );
 	},
 
 	_delay: function( handler, delay ) {
@@ -383,7 +404,7 @@ $.Widget.prototype = {
 
 	_hoverable: function( element ) {
 		this.hoverable = this.hoverable.add( element );
-		this._bind( element, {
+		this._on( element, {
 			mouseenter: function( event ) {
 				$( event.currentTarget ).addClass( "ui-state-hover" );
 			},
@@ -395,7 +416,7 @@ $.Widget.prototype = {
 
 	_focusable: function( element ) {
 		this.focusable = this.focusable.add( element );
-		this._bind( element, {
+		this._on( element, {
 			focusin: function( event ) {
 				$( event.currentTarget ).addClass( "ui-state-focus" );
 			},

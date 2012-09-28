@@ -68,7 +68,10 @@ $.each([
 			ok( menu.is( ":visible" ), "menu is visible after delay" );
 			element.simulate( "keydown", { keyCode: $.ui.keyCode.DOWN } );
 			element.simulate( "keydown", { keyCode: $.ui.keyCode.ENTER } );
-			element.simulate( "blur" );
+			// blur must be async for IE to handle it properly
+			setTimeout(function() {
+				element.simulate( "blur" );
+			}, 1 );
 		}, 50 );
 	});
 });
@@ -120,7 +123,7 @@ asyncTest( "cancel search", function() {
 
 asyncTest( "cancel focus", function() {
 	expect( 1 );
-	var customVal = "custom value";
+	var customVal = "custom value",
 		element = $( "#autocomplete" ).autocomplete({
 			delay: 0,
 			source: data,
