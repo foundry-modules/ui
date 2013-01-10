@@ -27,6 +27,12 @@ TestHelpers.commonWidgetTests( "draggable", {
 		snapMode: "both",
 		snapTolerance: 20,
 		stack: false,
-		zIndex: false
+		zIndex: false,
+
+		// callbacks
+		create: null,
+		drag: null,
+		start: null,
+		stop: null
 	}
 });
