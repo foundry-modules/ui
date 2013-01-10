@@ -1,6 +1,6 @@
 include ../../build/modules.mk
 
-SOURCE_DIR = dist/jquery-ui-1.9.0pre
+SOURCE_DIR = dist/jquery-ui-1.10.0pre
 UI = ${SOURCE_DIR}/ui
 THEMES = ${SOURCE_DIR}/themes/base
 
