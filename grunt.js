@@ -19,6 +19,7 @@ var
 	uiFiles = coreFiles.map(function( file ) {
 		return "ui/" + file;
 	}).concat( grunt.file.expandFiles( "ui/*.js" ).filter(function( file ) {
+		if (file==="ui/jquery.ui.button.js" || file==="ui/jquery.ui.dialog.js") return false;
 		return coreFiles.indexOf( file.substring(3) ) === -1;
 	})),
 
@@ -28,9 +29,9 @@ var
 		"core",
 		"accordion",
 		"autocomplete",
-		"button",
+		// "button",
 		"datepicker",
-		"dialog",
+		// "dialog",
 		"menu",
 		"progressbar",
 		"resizable",

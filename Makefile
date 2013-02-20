@@ -81,15 +81,15 @@ ui_:
 		-css "ui/datepicker" \
 			${UI}/jquery.ui.datepicker.tmp > ${DEVELOPMENT_DIR}/ui/datepicker.js
 
-	${MODULARIZE} -jq -n "ui/button" \
-		-d   "ui/core,ui/widget" \
-		-css "ui/button" \
-			${UI}/jquery.ui.button.js > ${DEVELOPMENT_DIR}/ui/button.js
+	# ${MODULARIZE} -jq -n "ui/button" \
+	# 	-d   "ui/core,ui/widget" \
+	# 	-css "ui/button" \
+	# 		${UI}/jquery.ui.button.js > ${DEVELOPMENT_DIR}/ui/button.js
 
-	${MODULARIZE} -jq -n "ui/dialog" \
-		-d   "ui/core,ui/widget,ui/button,ui/draggable,ui/mouse,ui/position,ui/resizable" \
-		-css "ui/dialog" \
-			${UI}/jquery.ui.dialog.js > ${DEVELOPMENT_DIR}/ui/dialog.js
+	# ${MODULARIZE} -jq -n "ui/dialog" \
+	# 	-d   "ui/core,ui/widget,ui/button,ui/draggable,ui/mouse,ui/position,ui/resizable" \
+	# 	-css "ui/dialog" \
+	# 		${UI}/jquery.ui.dialog.js > ${DEVELOPMENT_DIR}/ui/dialog.js
 
 	${MODULARIZE} -jq -n "ui/draggable" \
 		-d "ui/core,ui/mouse,ui/widget" \
@@ -154,9 +154,9 @@ ui-min:
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/core.js          > ${PRODUCTION_DIR}/ui/core.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/accordion.js     > ${PRODUCTION_DIR}/ui/accordion.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/autocomplete.js  > ${PRODUCTION_DIR}/ui/autocomplete.js
-	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/button.js        > ${PRODUCTION_DIR}/ui/button.js
+	#${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/button.js        > ${PRODUCTION_DIR}/ui/button.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/datepicker.js    > ${PRODUCTION_DIR}/ui/datepicker.js
-	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/dialog.js        > ${PRODUCTION_DIR}/ui/dialog.js
+	#${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/dialog.js        > ${PRODUCTION_DIR}/ui/dialog.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/draggable.js     > ${PRODUCTION_DIR}/ui/draggable.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/droppable.js     > ${PRODUCTION_DIR}/ui/droppable.js
 	${UGLIFYJS} ${DEVELOPMENT_DIR}/ui/menu.js          > ${PRODUCTION_DIR}/ui/menu.js
@@ -182,10 +182,10 @@ css:
 	cp -r ${THEMES}/images/*                ${DEVELOPMENT_DIR}/ui/images
 	cp ${THEMES}/jquery.ui.accordion.css    ${DEVELOPMENT_DIR}/ui/accordion.css
 	cp ${THEMES}/jquery.ui.autocomplete.css ${DEVELOPMENT_DIR}/ui/autocomplete.css
-	cp ${THEMES}/jquery.ui.button.css       ${DEVELOPMENT_DIR}/ui/button.css
+	# cp ${THEMES}/jquery.ui.button.css       ${DEVELOPMENT_DIR}/ui/button.css
 	cp ${THEMES}/jquery.ui.core.css         ${DEVELOPMENT_DIR}/ui/core.css
 	cp ${THEMES}/jquery.ui.datepicker.css   ${DEVELOPMENT_DIR}/ui/datepicker.css
-	cp ${THEMES}/jquery.ui.dialog.css       ${DEVELOPMENT_DIR}/ui/dialog.css
+	# cp ${THEMES}/jquery.ui.dialog.css       ${DEVELOPMENT_DIR}/ui/dialog.css
 	cp ${THEMES}/jquery.ui.menu.css         ${DEVELOPMENT_DIR}/ui/menu.css
 	cp ${THEMES}/jquery.ui.progressbar.css  ${DEVELOPMENT_DIR}/ui/progressbar.css
 	cp ${THEMES}/jquery.ui.resizable.css    ${DEVELOPMENT_DIR}/ui/resizable.css
@@ -200,10 +200,10 @@ css-min:
 	cp -r ${THEMES}/images/* ${PRODUCTION_DIR}/ui/images
 	${UGLIFYCSS} ${THEMES}/jquery.ui.accordion.css    > ${PRODUCTION_DIR}/ui/accordion.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.autocomplete.css > ${PRODUCTION_DIR}/ui/autocomplete.css
-	${UGLIFYCSS} ${THEMES}/jquery.ui.button.css       > ${PRODUCTION_DIR}/ui/button.css
+	# ${UGLIFYCSS} ${THEMES}/jquery.ui.button.css       > ${PRODUCTION_DIR}/ui/button.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.core.css         > ${PRODUCTION_DIR}/ui/core.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.datepicker.css   > ${PRODUCTION_DIR}/ui/datepicker.css
-	${UGLIFYCSS} ${THEMES}/jquery.ui.dialog.css       > ${PRODUCTION_DIR}/ui/dialog.css
+	# ${UGLIFYCSS} ${THEMES}/jquery.ui.dialog.css       > ${PRODUCTION_DIR}/ui/dialog.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.menu.css         > ${PRODUCTION_DIR}/ui/menu.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.progressbar.css  > ${PRODUCTION_DIR}/ui/progressbar.css
 	${UGLIFYCSS} ${THEMES}/jquery.ui.resizable.css    > ${PRODUCTION_DIR}/ui/resizable.css
