@@ -33,13 +33,13 @@ var
 		"datepicker",
 		// "dialog",
 		"menu",
-		"progressbar",
+		// "progressbar",
 		"resizable",
 		"selectable",
-		"slider",
+		// "slider",
 		"spinner",
-		"tabs",
-		"tooltip",
+		// "tabs",
+		// "tooltip",
 		"theme"
 	].map(function( component ) {
 		return "themes/base/jquery.ui." + component + ".css";
