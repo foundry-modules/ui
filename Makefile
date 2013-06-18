@@ -9,7 +9,6 @@ MODULE = ui
 MODULARIZE_OPTIONS = -jq -d "${UI_DEPS_JS}" -css "${UI_DEPS_CSS}"
 
 SOURCE_SCRIPT_FOLDER = dist/jquery-ui-1.10.0pre/ui
-SOURCE_SCRIPT_FILE   = ${SOURCE_SCRIPT_FOLDER}/jquery-ui.js
 
 SOURCE_STYLE_FOLDER      = dist/jquery-ui-1.10.0pre/themes/base
 SOURCE_STYLE_FILE_PREFIX = jquery.ui.
@@ -28,6 +27,7 @@ TARGET_ASSET_FOLDER_NAME = images
 
 build:
 	grunt release
+	$(eval SOURCE_SCRIPT_FILE = ${SOURCE_SCRIPT_FOLDER}/jquery-ui.js)
 
 theme: copy-styles minify-styles lessify-styles copy-assets
 	make style
@@ -74,11 +74,11 @@ post-ui/%: modularize-script minify-script
 
 pre-ui/accordion: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/widget)
-#   $(eval UI_DEPS_CSS = ui/accordion)
+	$(eval UI_DEPS_CSS = ui/accordion)
 
 pre-ui/autocomplete: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/widget,ui/position,ui/menu)
-#   $(eval UI_DEPS_CSS = ui/autocomplete)
+	$(eval UI_DEPS_CSS = ui/autocomplete)
 
 pre-ui/core: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS = ui/core,ui/theme)
@@ -88,7 +88,7 @@ pre-ui/datepicker:
 	$(eval SOURCE_SCRIPT_FILES = \
 		${SOURCE_SCRIPT_FOLDER}/jquery.ui.datepicker.js \
 		${SOURCE_SCRIPT_FOLDER}/i18n/jquery-ui-i18n.js)	
-#	$(eval UI_DEPS_CSS = ui/datepicker)
+	$(eval UI_DEPS_CSS = ui/datepicker)
 
 post-ui/datepicker: join-script-files modularize-script minify-script copy-style minify-style lessify-style
 
@@ -125,17 +125,17 @@ pre-ui/mouse:
 
 pre-ui/resizable: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
-#   $(eval UI_DEPS_CSS = ui/resizable)
+	$(eval UI_DEPS_CSS = ui/resizable)
 
 pre-ui/selectable: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
-#   $(eval UI_DEPS_CSS = ui/selectable)
+	$(eval UI_DEPS_CSS = ui/selectable)
 
 pre-ui/sortable:
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
 
 pre-ui/spinner: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
-#   $(eval UI_DEPS_CSS = ui/spinner)
+	$(eval UI_DEPS_CSS = ui/spinner)
 
 .PHONY: build post-ui/datepicker post-ui/effect
