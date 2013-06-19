@@ -81,7 +81,7 @@ pre-ui/autocomplete: copy-style minify-style lessify-style
 	$(eval UI_DEPS_CSS = ui/autocomplete)
 
 pre-ui/core: copy-style minify-style lessify-style
-	$(eval UI_DEPS_JS = ui/core)
+	@@echo
 
 pre-ui/datepicker:
 	$(eval UI_DEPS_JS  = ui/core)
