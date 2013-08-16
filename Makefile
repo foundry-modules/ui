@@ -1,4 +1,4 @@
-all: build create-script-folder modularize-script minify-script theme modules
+all: build create-script-folder theme modules join-script-files resolve-submodules modularize-script minify-script
 
 include ../../build/modules.mk
 
@@ -25,9 +25,29 @@ STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE = sed 's/.css\")/\"/g'
 SOURCE_ASSET_FILES = *.*
 TARGET_ASSET_FOLDER_NAME = images
 
+SOURCE_SCRIPT_FILES = \
+		${TARGET_SCRIPT_FOLDER}/core.js \
+		${TARGET_SCRIPT_FOLDER}/widget.js \
+		${TARGET_SCRIPT_FOLDER}/accordion.js \
+		${TARGET_SCRIPT_FOLDER}/autocomplete.js \
+		${TARGET_SCRIPT_FOLDER}/datepicker.js \
+		${TARGET_SCRIPT_FOLDER}/draggable.js \
+		${TARGET_SCRIPT_FOLDER}/droppable.js \
+		${TARGET_SCRIPT_FOLDER}/effect.js \
+		${TARGET_SCRIPT_FOLDER}/menu.js \
+		${TARGET_SCRIPT_FOLDER}/mouse.js \
+		${TARGET_SCRIPT_FOLDER}/position.js \
+		${TARGET_SCRIPT_FOLDER}/resizable.js \
+		${TARGET_SCRIPT_FOLDER}/selectable.js \
+		${TARGET_SCRIPT_FOLDER}/sortable.js \
+		${TARGET_SCRIPT_FOLDER}/spinner.js
+
 build:
 	grunt release
-	$(eval SOURCE_SCRIPT_FILE = ${SOURCE_SCRIPT_FOLDER}/jquery-ui.js)
+	# $(eval SOURCE_SCRIPT_FILE = ${SOURCE_SCRIPT_FOLDER}/jquery-ui.js)
+
+resolve-submodules:
+	echo '$$.module(["ui/core","ui/widget","ui/accordion","ui/autocomplete","ui/datepicker","ui/draggable","ui/droppable","ui/effect","ui/menu","ui/mouse","ui/position","ui/resizable","ui/selectable","ui/sortable","ui/spinner"]);' | cat - ${TARGET_SCRIPT_UNCOMPRESSED} > temp && mv temp ${TARGET_SCRIPT_UNCOMPRESSED}
 
 theme: copy-styles minify-styles lessify-styles copy-assets
 	make style
