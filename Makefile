@@ -107,7 +107,8 @@ pre-ui/datepicker:
 	$(eval UI_DEPS_JS  = ui/core)
 	$(eval SOURCE_SCRIPT_FILES = \
 		${SOURCE_SCRIPT_FOLDER}/jquery.ui.datepicker.js \
-		${SOURCE_SCRIPT_FOLDER}/i18n/jquery-ui-i18n.js)	
+		${SOURCE_SCRIPT_FOLDER}/i18n/jquery-ui-i18n.js \
+		reset.js)
 	$(eval UI_DEPS_CSS = ui/datepicker)
 
 post-ui/datepicker: join-script-files modularize-script minify-script copy-style minify-style lessify-style
