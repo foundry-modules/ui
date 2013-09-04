@@ -8,9 +8,9 @@ UI_DEPS_CSS =
 MODULE = ui
 MODULARIZE_OPTIONS = -jq -d "${UI_DEPS_JS}" -css "${UI_DEPS_CSS}"
 
-SOURCE_SCRIPT_FOLDER = dist/jquery-ui-1.10.0pre/ui
+SOURCE_SCRIPT_FOLDER = dist/jquery-ui-1.10.4pre/ui
 
-SOURCE_STYLE_FOLDER      = dist/jquery-ui-1.10.0pre/themes/base
+SOURCE_STYLE_FOLDER      = dist/jquery-ui-1.10.4pre/themes/base
 SOURCE_STYLE_FILE_PREFIX = jquery.ui.
 SOURCE_STYLE_FILES       = base theme
 
