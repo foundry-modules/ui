@@ -1,17 +1,17 @@
 #!/usr/bin/env node
-/*global cat:true cd:true echo:true exec:true exit:true*/
+/* global cat:true, cd:true, echo:true, exec:true, exit:true */
 
 // Usage:
 // stable release: node release.js
 // pre-release: node release.js --pre-release {version}
+// test run: node release.js --remote=user/repo
 
 "use strict";
 
-var baseDir, repoDir, prevVersion, newVersion, nextVersion, tagTime, preRelease,
+var baseDir, repoDir, prevVersion, newVersion, nextVersion, tagTime, preRelease, repo,
 	fs = require( "fs" ),
 	rnewline = /\r?\n/,
-	repo = "git@github.com:jquery/jquery-ui.git",
-	branch = "master";
+	branch = "1-10-stable";
 
 walk([
 	bootstrap,
@@ -121,7 +121,7 @@ function getVersions() {
 
 		// TODO: handle 1.10.0
 		// Also see comment above about pre-releases
-		if ( minor === 0 ) {
+		if ( patch === 0 ) {
 			abort( "This script is not smart enough to handle the 1.10.0 release." );
 		}
 
@@ -357,6 +357,44 @@ function writePackage( pkg ) {
 }
 
 function bootstrap( fn ) {
+	getRemote(function( remote ) {
+		repo = "git@github.com:" + remote + ".git";
+		_bootstrap( fn );
+	});
+}
+
+function getRemote( fn ) {
+	var matches, remote;
+
+	console.log( "Determining remote repo..." );
+	process.argv.forEach(function( arg ) {
+		matches = /--remote=(.+)/.exec( arg );
+		if ( matches ) {
+			remote = matches[ 1 ];
+		}
+	});
+
+	if ( remote ) {
+		fn( remote );
+		return;
+	}
+
+	console.log();
+	console.log( "     !!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+	console.log( "     !!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+	console.log( "     !!                        !!" );
+	console.log( "     !! Using jquery/jquery-ui !!" );
+	console.log( "     !!                        !!" );
+	console.log( "     !!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+	console.log( "     !!!!!!!!!!!!!!!!!!!!!!!!!!!!" );
+	console.log();
+	console.log( "Press enter to continue, or ctrl+c to cancel." );
+	prompt(function() {
+		fn( "jquery/jquery-ui" );
+	});
+}
+
+function _bootstrap( fn ) {
 	console.log( "Determining release type..." );
 	preRelease = process.argv.indexOf( "--pre-release" );
 	if ( preRelease !== -1 ) {
