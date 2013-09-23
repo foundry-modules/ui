@@ -36,7 +36,7 @@ var
 		// "progressbar",
 		"resizable",
 		"selectable",
-		// "slider",
+		"slider",
 		"spinner",
 		// "tabs",
 		// "tooltip",
