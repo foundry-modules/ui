@@ -156,6 +156,9 @@ pre-ui/selectable: copy-style minify-style lessify-style
 pre-ui/sortable:
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
 
+pre-ui/slider:
+	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
+
 pre-ui/spinner: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/core,ui/mouse,ui/widget)
 	$(eval UI_DEPS_CSS = ui/spinner)
