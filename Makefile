@@ -12,7 +12,24 @@ SOURCE_SCRIPT_FOLDER = dist/jquery-ui-1.10.4pre/ui
 
 SOURCE_STYLE_FOLDER      = dist/jquery-ui-1.10.4pre/themes/base
 SOURCE_STYLE_FILE_PREFIX = jquery.ui.
-SOURCE_STYLE_FILES       = base theme
+SOURCE_STYLE_FILES       = \
+	accordion \
+	all \
+	autocomplete \
+	base \
+	button \
+	core \
+	datepicker \
+	dialog \
+	menu \
+	progressbar \
+	resizable \
+	selectable \
+	slider \
+	spinner \
+	tabs \
+	theme \
+	tooltip
 
 TARGET_STYLE_LESS_CONVERTER = ${USE_FOUNDRY_URI} | \
 	${USE_LESS_IMPORT} | \
@@ -22,25 +39,25 @@ USE_FOUNDRY_URI = sed 's/url(images/url(@{foundry_uri}\/ui\/images/g'
 USE_LESS_IMPORT = sed 's/url(\"jquery.ui./\"ui\//g'
 STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE = sed 's/.css\")/\"/g' 
 
-SOURCE_ASSET_FILES = *.*
+SOURCE_ASSET_FILES = ${SOURCE_STYLE_FOLDER}/images/*
 TARGET_ASSET_FOLDER_NAME = images
 
 SOURCE_SCRIPT_FILES = \
-		${TARGET_SCRIPT_FOLDER}/core.js \
-		${TARGET_SCRIPT_FOLDER}/widget.js \
-		${TARGET_SCRIPT_FOLDER}/accordion.js \
-		${TARGET_SCRIPT_FOLDER}/autocomplete.js \
-		${TARGET_SCRIPT_FOLDER}/datepicker.js \
-		${TARGET_SCRIPT_FOLDER}/draggable.js \
-		${TARGET_SCRIPT_FOLDER}/droppable.js \
-		${TARGET_SCRIPT_FOLDER}/effect.js \
-		${TARGET_SCRIPT_FOLDER}/menu.js \
-		${TARGET_SCRIPT_FOLDER}/mouse.js \
-		${TARGET_SCRIPT_FOLDER}/position.js \
-		${TARGET_SCRIPT_FOLDER}/resizable.js \
-		${TARGET_SCRIPT_FOLDER}/selectable.js \
-		${TARGET_SCRIPT_FOLDER}/sortable.js \
-		${TARGET_SCRIPT_FOLDER}/spinner.js
+	${TARGET_SCRIPT_FOLDER}/core.js \
+	${TARGET_SCRIPT_FOLDER}/widget.js \
+	${TARGET_SCRIPT_FOLDER}/accordion.js \
+	${TARGET_SCRIPT_FOLDER}/autocomplete.js \
+	${TARGET_SCRIPT_FOLDER}/datepicker.js \
+	${TARGET_SCRIPT_FOLDER}/draggable.js \
+	${TARGET_SCRIPT_FOLDER}/droppable.js \
+	${TARGET_SCRIPT_FOLDER}/effect.js \
+	${TARGET_SCRIPT_FOLDER}/menu.js \
+	${TARGET_SCRIPT_FOLDER}/mouse.js \
+	${TARGET_SCRIPT_FOLDER}/position.js \
+	${TARGET_SCRIPT_FOLDER}/resizable.js \
+	${TARGET_SCRIPT_FOLDER}/selectable.js \
+	${TARGET_SCRIPT_FOLDER}/sortable.js \
+	${TARGET_SCRIPT_FOLDER}/spinner.js
 
 build:
 	grunt release
