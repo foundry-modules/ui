@@ -317,4 +317,23 @@ $.extend( $.ui, {
 	}
 });
 
+$(function(){
+
+	if ($("body > #fd_.ui").length > 0) return;
+
+	// Create container for #fd-ui
+	$(document.createElement("div"))
+		.attr("id", "fd_")
+		.addClass("ui")
+		.css({
+			position: "absolute",
+			top: 0,
+			left: 0,
+			overflow: "visible",
+			width: 0,
+			height: 0
+		})
+		.appendTo("body");
+});
+
 })( jQuery );

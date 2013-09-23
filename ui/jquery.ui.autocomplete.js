@@ -23,7 +23,7 @@ $.widget( "ui.autocomplete", {
 	version: "@VERSION",
 	defaultElement: "<input>",
 	options: {
-		appendTo: null,
+		appendTo: "#fd_.ui",
 		autoFocus: false,
 		delay: 300,
 		minLength: 1,
