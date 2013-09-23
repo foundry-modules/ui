@@ -74,6 +74,7 @@ modules:
 	make ui/selectable
 	make ui/sortable
 	make ui/spinner
+	make ui/slider
 
 ui/%:
 	make init-ui/$* pre-ui/$* post-ui/$* 
