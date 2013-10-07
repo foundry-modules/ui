@@ -1,1 +1,3 @@
-$.datepicker.setDefaults($.datepicker.regional[""]);
+jQuery(function($){
+	$.datepicker.setDefaults($.datepicker.regional[""]);
+});
