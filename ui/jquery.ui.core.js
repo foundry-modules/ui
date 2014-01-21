@@ -319,11 +319,11 @@ $.extend( $.ui, {
 
 $(function(){
 
-	if ($("body > #fd_.ui").length > 0) return;
+	if ($("body > #fd.ui").length > 0) return;
 
 	// Create container for #fd-ui
 	$(document.createElement("div"))
-		.attr("id", "fd_")
+		.attr("id", "fd")
 		.addClass("ui")
 		.css({
 			position: "absolute",
