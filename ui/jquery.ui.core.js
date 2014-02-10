@@ -331,7 +331,8 @@ $(function(){
 			left: 0,
 			overflow: "visible",
 			width: 0,
-			height: 0
+			height: 0,
+			zIndex: 10002
 		})
 		.appendTo("body");
 });
