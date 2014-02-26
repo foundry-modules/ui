@@ -146,6 +146,23 @@ $.extend(Datepicker.prototype, {
 		}
 		inst = this._newInst($(target), inline);
 		inst.settings = $.extend({}, settings || {});
+
+		// hack: accept lang property.
+		var langCode = inst.settings.lang;
+
+		if (langCode) {
+
+			var altLangCode = langCode.split("-")[0];
+
+			// Get language strings
+			var langStrings = $.datepicker.regional[langCode] || $.datepicker.regional[altLangCode];
+
+			// If language strings exists, use it.
+			if (langStrings) {
+				$.extend(inst.settings, langStrings);
+			}
+		}
+
 		if (nodeName === "input") {
 			this._connectDatepicker(target, inst);
 		} else if (inline) {
