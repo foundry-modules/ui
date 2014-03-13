@@ -316,7 +316,7 @@ $.extend(Datepicker.prototype, {
 			this._dialogInput = $("<input type='text' id='" + id +
 				"' style='position: absolute; top: -100px; width: 0px;'/>");
 			this._dialogInput.keydown(this._doKeyDown);
-			$("#fd.ui").append(this._dialogInput);
+			$("[id=fd].ui").append(this._dialogInput);
 			inst = this._dialogInst = this._newInst(this._dialogInput, false);
 			inst.settings = {};
 			$.data(this._dialogInput[0], PROP_NAME, inst);
@@ -900,7 +900,7 @@ $.extend(Datepicker.prototype, {
 				this._dialogInput.css({ position: "absolute", left: "0", top: "-100px" });
 				if ($.blockUI) {
 					$.unblockUI();
-					$("#fd.ui").append(this.dpDiv);
+					$("[id=fd].ui").append(this.dpDiv);
 				}
 			}
 			this._inDialog = false;
@@ -2027,7 +2027,7 @@ $.fn.datepicker = function(options){
 
 	/* Append datepicker main container to body if not exist. */
 	if ($("#"+$.datepicker._mainDivId).length === 0) {
-		$("#fd.ui").append($.datepicker.dpDiv);
+		$("[id=fd].ui").append($.datepicker.dpDiv);
 	}
 
 	var otherArgs = Array.prototype.slice.call(arguments, 1);

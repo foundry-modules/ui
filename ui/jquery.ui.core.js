@@ -319,7 +319,7 @@ $.extend( $.ui, {
 
 $(function(){
 
-	if ($("body > #fd.ui").length > 0) return;
+	if ($("body > [id=fd].ui").length > 0) return;
 
 	// Create container for #fd-ui
 	$(document.createElement("div"))

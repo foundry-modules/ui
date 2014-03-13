@@ -23,7 +23,7 @@ $.widget( "ui.autocomplete", {
 	version: "@VERSION",
 	defaultElement: "<input>",
 	options: {
-		appendTo: "#fd.ui",
+		appendTo: "[id=fd].ui",
 		autoFocus: false,
 		delay: 300,
 		minLength: 1,
@@ -625,7 +625,7 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 
 	function filter( array, term ) {
 		var matcher = new RegExp( $.ui.autocomplete.escapeRegex(term), "i" );
-		
+
 		return $.grep( array, function(value) {
 			return matcher.test( $( "<div>" ).html( value.label || value.value || value ).text() );
 		});
@@ -633,7 +633,7 @@ $.widget( "ui.autocomplete", $.ui.autocomplete, {
 
 	$.extend( proto, {
 		_initSource: function() {
-		
+
 			if ( this.options.html && $.isArray(this.options.source) ) {
 				this.source = function( request, response ) {
 					response( filter( this.options.source, request.term ) );
