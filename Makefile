@@ -2,8 +2,8 @@ all: build create-script-folder theme modules join-script-files resolve-submodul
 
 include ../../build/modules.mk
 
-UI_DEPS_JS = 
-UI_DEPS_CSS = 
+UI_DEPS_JS =
+UI_DEPS_CSS =
 
 MODULE = ui
 MODULARIZE_OPTIONS = -jq -d "${UI_DEPS_JS}" -css "${UI_DEPS_CSS}"
@@ -35,9 +35,9 @@ TARGET_STYLE_LESS_CONVERTER = ${USE_FOUNDRY_URI} | \
 	${USE_LESS_IMPORT} | \
 	${STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE}
 
-USE_FOUNDRY_URI = sed 's/url(images/url(@{foundry_uri}\/ui\/images/g'
+USE_FOUNDRY_URI = sed 's/url(images/url(@{foundry_uri}ui\/images/g'
 USE_LESS_IMPORT = sed 's/url(\"jquery.ui./\"ui\//g'
-STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE = sed 's/.css\")/\"/g' 
+STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE = sed 's/.css\")/\"/g'
 
 SOURCE_ASSET_FILES = ${SOURCE_STYLE_FOLDER}/images/*
 TARGET_ASSET_FOLDER_NAME = images
@@ -74,7 +74,7 @@ style: .style copy-style minify-style lessify-style
 .style:
 	$(eval SOURCE_STYLE_FILE = ${SOURCE_STYLE_FOLDER}/jquery-ui.css)
 	$(eval TARGET_STYLE_FILE_NAME = all)
-	
+
 modules:
 	make ui/core
 	make ui/widget
@@ -94,7 +94,7 @@ modules:
 	make ui/slider
 
 ui/%:
-	make init-ui/$* pre-ui/$* post-ui/$* 
+	make init-ui/$* pre-ui/$* post-ui/$*
 
 init-ui/%:
 	$(eval MODULE = ui/$*)
@@ -159,7 +159,7 @@ post-ui/effect: join-script-files modularize-script minify-script
 pre-ui/menu: copy-style minify-style lessify-style
 	$(eval UI_DEPS_JS  = ui/widget)
 
-pre-ui/mouse: 
+pre-ui/mouse:
 	$(eval UI_DEPS_JS  = ui/widget)
 
 pre-ui/resizable: copy-style minify-style lessify-style
