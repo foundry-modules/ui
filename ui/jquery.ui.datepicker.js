@@ -159,7 +159,7 @@ $.extend(Datepicker.prototype, {
 
 			// If language strings exists, use it.
 			if (langStrings) {
-				$.extend(inst.settings, langStrings);
+				$.extend(inst.settings, langStrings, inst.settings.region);
 			}
 		}
 
