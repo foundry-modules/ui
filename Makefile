@@ -35,7 +35,7 @@ TARGET_STYLE_LESS_CONVERTER = ${USE_FOUNDRY_URI} | \
 	${USE_LESS_IMPORT} | \
 	${STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE}
 
-USE_FOUNDRY_URI = sed 's/url(images/url(@{foundry_uri}ui\/images/g'
+USE_FOUNDRY_URI = sed 's/url(images/url(@{global_uri}\/ui\/images/g'
 USE_LESS_IMPORT = sed 's/url(\"jquery.ui./\"ui\//g'
 STRIP_EXTENSION_FROM_LESS_IMPORT_DIRECTIVE = sed 's/.css\")/\"/g'
 
