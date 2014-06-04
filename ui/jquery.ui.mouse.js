@@ -29,8 +29,8 @@ $.widget("ui.mouse", {
 		var that = this;
 
 		this.element
-			.bind("mousedown."+this.widgetName, function(event) {
-				return that._mouseDown(event);
+			.bind("mousedown."+this.widgetName, function(event, eventOverride) {
+				return that._mouseDown(eventOverride || event);
 			})
 			.bind("click."+this.widgetName, function(event) {
 				if (true === $.data(event.target, that.widgetName + ".preventClickEvent")) {
