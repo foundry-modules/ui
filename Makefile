@@ -64,7 +64,7 @@ build:
 	# $(eval SOURCE_SCRIPT_FILE = ${SOURCE_SCRIPT_FOLDER}/jquery-ui.js)
 
 resolve-submodules:
-	echo '$$.module(["ui/core","ui/widget","ui/accordion","ui/autocomplete","ui/datepicker","ui/draggable","ui/droppable","ui/effect","ui/menu","ui/mouse","ui/position","ui/resizable","ui/selectable","ui/sortable","ui/spinner","ui/notify"]);' | cat - ${TARGET_SCRIPT_UNCOMPRESSED} > temp && mv temp ${TARGET_SCRIPT_UNCOMPRESSED}
+	echo '$$.module(["ui/core","ui/widget","ui/accordion","ui/autocomplete","ui/datepicker","ui/draggable","ui/droppable","ui/effect","ui/menu","ui/mouse","ui/position","ui/resizable","ui/selectable","ui/sortable","ui/spinner"]);' | cat - ${TARGET_SCRIPT_UNCOMPRESSED} > temp && mv temp ${TARGET_SCRIPT_UNCOMPRESSED}
 
 theme: copy-styles minify-styles lessify-styles copy-assets
 	make style
@@ -92,7 +92,6 @@ modules:
 	make ui/sortable
 	make ui/spinner
 	make ui/slider
-	make ui/notify
 
 ui/%:
 	make init-ui/$* pre-ui/$* post-ui/$*
