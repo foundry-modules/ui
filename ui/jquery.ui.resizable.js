@@ -144,6 +144,10 @@ $.widget("ui.resizable", $.ui.mouse, {
 
 			for(i in this.handles) {
 
+				// FOUNDRY_HACK
+				// Fixes mootools conflict
+				if (!this.handles.hasOwnProperty(i)) continue;
+
 				if(this.handles[i].constructor === String) {
 					this.handles[i] = $(this.handles[i], this.element).show();
 				}
@@ -255,6 +259,11 @@ $.widget("ui.resizable", $.ui.mouse, {
 			capture = false;
 
 		for (i in this.handles) {
+
+			// FOUNDRY_HACK
+			// Fixes mootools conflict
+			if (!this.handles.hasOwnProperty(i)) continue;
+
 			handle = $(this.handles[i])[0];
 			if (handle === event.target || $.contains(handle, event.target)) {
 				capture = true;
